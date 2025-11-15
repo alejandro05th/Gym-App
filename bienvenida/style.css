@@ -1,0 +1,158 @@
+/* --- Reseteo y Estilos Base --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* ¡CLAVE! Oculta el scroll y evita que la animación 
+       cause desbordamientos al inicio */
+    overflow: hidden; 
+}
+
+/* --- 1. EL FONDO "DE ENSUEÑO" --- */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido de 450px */
+    
+    /* ¡NUEVO! Un gradiente premium que grita "tecnología y fitness".
+       Es más limpio y profesional que una foto de fondo. */
+    background: linear-gradient(160deg, #1e3c72 0%, #2a5298 100%);
+    
+    color: #ffffff; /* Texto blanco por defecto */
+}
+
+/* --- 2. LAS ANIMACIONES "EMBAUCADORAS" --- */
+/* Definimos una animación de "aparecer y subir" */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Empieza 30px abajo */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Termina en su posición original */
+    }
+}
+
+/* --- 3. CONTENIDO PRINCIPAL (Jerarquía) --- */
+.welcome-content {
+    flex-grow: 1; /* Empuja el footer hacia abajo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 450px; /* El "contenedor" de nuestra app */
+    
+    /* Hacemos que el contenido entre con la animación */
+    /* animation: [nombre] [duración] [efecto] [delay] [fill-mode] */
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    
+    /* Empieza invisible para que la animación funcione */
+    opacity: 0;
+}
+
+/* --- 4. LA IMAGEN (El cambio más grande) --- */
+.app-logo {
+    /* ¡YA NO ES UN LOGO, ES LA ESTRELLA! */
+    width: 100%; /* Ocupa el 100% del contenedor */
+    max-width: 350px; /* Un tope para que no sea gigante */
+    height: auto; /* Mantiene la proporción */
+    border-radius: 16px; /* Bordes suaves y modernos */
+    margin-bottom: 30px; /* Más espacio para respirar */
+    
+    /* Un efecto "flotante" de app premium */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    
+    /* Animación: entra un poco después que el contenedor */
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+/* --- 5. TIPOGRAFÍA REFINADA --- */
+.welcome-title {
+    /* Más pequeño para dar protagonismo a la imagen */
+    font-size: 2.0rem; 
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    
+    /* Animación: entra después de la imagen */
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+.welcome-subtitle {
+    font-size: 1.0rem;
+    font-weight: 400;
+    margin: 0;
+    max-width: 320px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    line-height: 1.5;
+    
+    /* Sutilmente menos importante */
+    opacity: 0.8;
+    
+    /* Animación: entra después del título */
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    /* La opacidad inicial (0) la pilla de esta animación */
+}
+
+/* --- 6. FOOTER CON BOTONES (La Acción) --- */
+.welcome-footer {
+    flex-shrink: 0; /* No se encoge */
+    padding: 20px 25px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 450px;
+    background: transparent; /* El fondo ya es bonito */
+    
+    /* Animación: es lo último en entrar */
+    animation: fadeInUp 0.8s ease-out 1.0s forwards;
+    opacity: 0;
+}
+
+/* --- 7. BOTONES "PREMIUM" --- */
+button {
+    width: 100%;
+    padding: 16px; /* Grandes, fáciles de tocar */
+    font-size: 1.0rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    /* Transición para el estado :active */
+    transition: all 0.1s ease-in-out; 
+}
+
+/* ¡NUEVO! Feedback táctil para móvil */
+/* Esto se activa CUANDO PRESIONAS el botón */
+button:active {
+    /* El botón se "hunde" un poco */
+    transform: scale(0.98); 
+    opacity: 0.9;
+}
+
+.btn-primary {
+    /* ¡NUEVO! Un gradiente que atrae la mirada */
+    background: linear-gradient(90deg, #007BFF 0%, #00C6FF 100%);
+    color: #ffffff;
+    border: none;
+    margin-bottom: 12px;
+    
+    /* ¡NUEVO! Un "brillo" sutil del color del botón */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    /* Un borde más sutil, semi-transparente */
+    border: 2px solid rgba(255, 255, 255, 0.5); 
+}
+
+.btn-secondary:hover { /* :hover para escritorio */
+    background-color: rgba(255, 255, 255, 0.1);
+}

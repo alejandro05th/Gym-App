@@ -1,0 +1,33 @@
+#titulo-pagina {
+    color: black;
+    text-align: center;
+}
+body {
+    background-color: white;
+    font-faily: Arial;
+    color: green;
+    margin: 0;
+    .contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /*regulamos altura del humano*/
+    }
+}
+
+
+svg {
+    width: 500px;
+}
+
+svg path {
+    fill: #ffffff !important;         /* Relleno blanco */
+    stroke: #000000 !important;      /* Contorno negro */
+    stroke-width: 0.5px !important;  /* Grosor del contorno (ajusta si te gusta) */
+    transition: fill 0.2s;           /* Animación suave al cambiar de color */
+}
+
+svg path:hover {
+    fill: blue !important;   /* Se pone rojo (puedes cambiar el color) */
+    cursor: pointer;            
+}
