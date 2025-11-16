@@ -16,51 +16,46 @@ body {
     letter-spacing: 2px;
 }
 
-/* * CORRECCIÓN #1: 
- * Cambiado de .contenedor a #contenedor-svg para coincidir
- * con el ID de tu archivo cuerpo.html.
- * También he fusionado tus estilos con los que teníamos antes.
- */
+/* CORRECCIÓN #1 */
 #contenedor-svg {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 500px; /* Importante para mantener el tamaño */
-    margin: 20px auto; /* Importante para centrarlo */
+    max-width: 500px;
+    margin: 20px auto;
 }
 
-/* * CORRECCIÓN #2: 
- * Selector HECHO MÁS ESPECÍFICO.
- * Ahora le dice "busca un path DENTRO del div #contenedor-svg".
- * Esto es más fuerte y ANULARÁ el color negro de tu archivo SVG.
- */
+/* CORRECCIÓN #2 */
 #contenedor-svg svg path {
-    fill: #ffffff;      /* Cuerpo blanco por defecto */
-    stroke: #000000;    /* Contorno negro */
+    fill: #ffffff;
+    stroke: #000000;
     stroke-width: 1px;
     transition: all 0.3s ease;
 }
+#contenedor-svg svg path.seleccionado {
+    fill: #1e90ff !important;   /* azul */
+}
 
-/* * CORRECCIÓN #3: 
- * Tu JS añade la clase "musculo-clicable", no "musculo".
- * También he hecho el selector más específico.
- */
+/* Hover */
 #contenedor-svg svg path.musculo-clicable:hover {
-    fill: #1e90ff;      /* Azul al pasar el mouse */
+    fill: #1e90ff;
     stroke: #dfdfdf;
     transform: scale(1.05);
     cursor: pointer;
 }
 
-/* * CORRECCIÓN #4: 
- * Cambiado de .contenedor svg a #contenedor-svg svg.
- * El width se pone al 100% para que sea flexible dentro
- * del 'max-width: 500px' del contenedor.
- */
+/* CORRECCIÓN #4 */
 #contenedor-svg svg {
-    width: 100%; 
+    width: 100%;
     transition: transform 0.3s ease;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
+}
+
+/* ⭐ NUEVO: Músculo seleccionado (AZUL) */
+#contenedor-svg svg path.seleccionado {
+    fill: #1e90ff !important;
+    stroke: #003f87 !important;
+    transform: scale(1.08);
 }
