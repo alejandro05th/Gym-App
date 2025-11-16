@@ -1,35 +1,67 @@
 /* ----------------------------------------------------------
-   ESTILOS PARA LA SELECCIÓN DE PERSONAJE
-   (personaje.css)
+   ESTILOS PARA LA SELECCIÓN DE PERSONAJE (personaje.css)
+   Versión con Slider Horizontal
 ---------------------------------------------------------- */
 
-/* 1. CONTENEDOR GRID DE PERSONAJES */
-.coach-grid {
-    display: grid;
-    /* 2 columnas en móvil */
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
+/* 1. CONTENEDOR DEL SLIDER (El "marco" visible) */
+.coach-slider-wrapper {
     width: 100%;
-    margin-top: 25px;
+    overflow-x: auto; /* Permite el scroll horizontal */
+    overflow-y: hidden; /* Oculta el scroll vertical */
     
-    /* Animación de entrada (igual que el resto) */
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-    /* Hacemos que aparezca un poco después del título */
+    /* --- Magia de Snap (para que frene en cada página) --- */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    
+    /* --- Ocultar la barra de scroll --- */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
 }
 
-/* 2. TARJETA DE PERSONAJE INDIVIDUAL */
+.coach-slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* 2. CONTENEDOR DE PÁGINAS (El que realmente se mueve) */
+.coach-grid-slider {
+    display: flex; /* Pone las páginas una al lado de la otra */
+    flex-wrap: nowrap;
+    width: max-content; /* El ancho es la suma de sus hijos (las páginas) */
+    
+    /* Espacio entre las páginas */
+    gap: 18px; 
+    
+    /* Animación de entrada */
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+    margin-top: 25px;
+}
+
+/* 3. PÁGINA INDIVIDUAL (Contiene la grid 2x2) */
+.coach-page {
+    width: 100%; /* Cada página ocupa el 100% del wrapper */
+    flex-shrink: 0; /* ¡MUY IMPORTANTE! Evita que la página se encoja */
+    scroll-snap-align: start; /* Fija la página al inicio del scroll */
+    
+    /* La grid de 2x2 va AQUÍ dentro */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    
+    /* Ajuste para que el 'width: 100%' funcione bien */
+    box-sizing: border-box; 
+}
+
+
+/* 4. TARJETA DE PERSONAJE (Sin cambios) */
 .coach-card {
-    /* Estilo Glass-morphism */
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 18px;
     padding: 12px;
     text-align: center;
     cursor: pointer;
-    
     backdrop-filter: blur(8px);
-    
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
@@ -45,16 +77,14 @@
     opacity: 0.9;
 }
 
-/* 3. IMAGEN DEL COACH */
+/* 5. IMAGEN Y NOMBRE DEL COACH (Sin cambios) */
 .coach-card img {
     width: 100%;
     height: auto;
-    /* Redondeamos la imagen (que tiene fondo blanco) */
     border-radius: 12px;
-    background: white; /* Asegura fondo blanco uniforme */
+    background: white;
 }
 
-/* 4. NOMBRE DEL COACH */
 .coach-card span {
     display: block;
     margin-top: 10px;
@@ -64,15 +94,11 @@
     text-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
-/* 5. ESTADO SELECCIONADO (¡NEÓN!) */
+/* 6. ESTADO SELECCIONADO (¡NEÓN!) (Sin cambios) */
 .coach-card.selected {
     background: rgba(255, 255, 255, 0.25);
-    
-    /* El mismo borde neón del input de texto */
     border-color: #00c3ff;
     box-shadow: 0 0 20px #00c3ffaa;
-    
-    /* Animación de pulso para el seleccionado */
     animation: pulseSelected 2s infinite;
 }
 
@@ -88,17 +114,5 @@
     100% {
         border-color: #00c3ff;
         box-shadow: 0 0 20px #00c3ffaa;
-    }
-}
-
-/* 6. RESPONSIVE (para tablets o pantallas más anchas) */
-@media (min-width: 480px) {
-    .coach-grid {
-        /* Pasamos a 3 columnas si hay más espacio */
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .coach-card span {
-        font-size: 1rem;
     }
 }
