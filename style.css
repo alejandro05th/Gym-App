@@ -22,7 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 90vw;
     margin: 20px auto;
 }
 
@@ -33,17 +33,7 @@ body {
     stroke-width: 1px;
     transition: all 0.3s ease;
 }
-#contenedor-svg svg path.seleccionado {
-    fill: #1e90ff !important;   /* azul */
-}
 
-/* Hover */
-#contenedor-svg svg path.musculo-clicable:hover {
-    fill: #1e90ff;
-    stroke: #dfdfdf;
-    transform: scale(1.05);
-    cursor: pointer;
-}
 
 /* CORRECCIÓN #4 */
 #contenedor-svg svg {
