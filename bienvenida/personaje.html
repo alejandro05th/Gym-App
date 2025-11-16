@@ -32,6 +32,9 @@
                         <img src="personajes/mayá.png" alt="Coach Mayá">
                         <span>COACH MAYÁ</span>
                     </div>
+                </div>
+
+                <div class="coach-page">
                     <div class="coach-card" onclick="selectCoach(this, 'Hugo')">
                         <img src="personajes/hugo.png" alt="Coach Hugo">
                         <span>COACH HUGO</span>
@@ -51,9 +54,15 @@
                         <img src="personajes/mayía.png" alt="Coach Mayía">
                         <span>COACH MAYÍA</span>
                     </div>
-                    </div>
+                </div>
 
             </div>
+        </div>
+
+        <div class="slider-indicators">
+            <span class="dot active" onclick="scrollToPage(0)"></span>
+            <span class="dot" onclick="scrollToPage(1)"></span>
+            <span class="dot" onclick="scrollToPage(2)"></span>
         </div>
         
     </main>
@@ -65,9 +74,9 @@
     </footer>
 
 <script>
-    // El script JavaScript sigue siendo el mismo. ¡No necesita cambios!
     let selectedCoachName = null;
-
+    
+    // --- CÓDIGO ANTIGUO (Funciona igual) ---
     function selectCoach(element, coachName) {
         const allCards = document.querySelectorAll('.coach-card');
         allCards.forEach(card => {
@@ -90,6 +99,38 @@
             // window.location.href = "dashboard.html"; 
         }
     }
+
+    // --- CÓDIGO NUEVO (Para los puntos indicadores) ---
+    const slider = document.querySelector('.coach-slider-wrapper');
+    const dots = document.querySelectorAll('.dot');
+    const gap = 18; // El 'gap' definido en tu CSS
+
+    // Función para ir a una página al hacer clic en un punto
+    function scrollToPage(pageIndex) {
+        const pageWidth = slider.offsetWidth;
+        slider.scrollTo({
+            left: pageIndex * (pageWidth + gap),
+            behavior: 'smooth'
+        });
+    }
+
+    // Función para actualizar los puntos al deslizar
+    slider.addEventListener('scroll', () => {
+        const pageWidth = slider.offsetWidth;
+        
+        // Calcula la página actual basándose en la posición del scroll
+        // Usamos Math.round para que cambie al pasar la mitad de la página
+        let currentPage = Math.round(slider.scrollLeft / (pageWidth + gap));
+
+        // Actualiza la clase 'active' en los puntos
+        dots.forEach((dot, index) => {
+            if (index === currentPage) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    });
 </script>
 
 </body>

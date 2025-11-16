@@ -37,13 +37,13 @@
     margin-top: 25px;
 }
 
-/* 3. PÁGINA INDIVIDUAL (Contiene la grid 2x2) */
+/* 3. PÁGINA INDIVIDUAL (Contiene la grid 2x2... ahora 2x1) */
 .coach-page {
     width: 100%; /* Cada página ocupa el 100% del wrapper */
     flex-shrink: 0; /* ¡MUY IMPORTANTE! Evita que la página se encoja */
     scroll-snap-align: start; /* Fija la página al inicio del scroll */
     
-    /* La grid de 2x2 va AQUÍ dentro */
+    /* La grid de 2x1 va AQUÍ dentro */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
@@ -115,4 +115,34 @@
         border-color: #00c3ff;
         box-shadow: 0 0 20px #00c3ffaa;
     }
+}
+
+/* ----------------------------------------------------------
+   7. (NUEVO) ESTILOS PARA LOS PUNTOS INDICADORES
+---------------------------------------------------------- */
+.slider-indicators {
+    text-align: center;
+    margin-top: 20px; /* Espacio entre el slider y los puntos */
+    
+    /* Animación de entrada */
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards; /* Aparece un poco después */
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #fff;
+    transform: scale(1.2);
+    /* Efecto neón a juego con el resto */
+    box-shadow: 0 0 10px #00c3ff, 0 0 5px #fff;
 }
