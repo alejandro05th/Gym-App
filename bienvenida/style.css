@@ -2,11 +2,12 @@
    0. RESET Y BASE
 ---------------------------------------------------------- */
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* evita scroll lateral */
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -17,10 +18,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between; /* todo encaja sin scroll */
     background: linear-gradient(135deg, #1e3c72, #2a5298, #4f2bb7, #1e3c72);
     background-size: 300% 300%;
     animation: bgAnimation 15s ease infinite;
     color: #fff;
+    min-height: 100vh;
 }
 
 @keyframes bgAnimation {
@@ -38,20 +41,22 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+
     width: 100%;
-    max-width: 460px;
+    max-width: 480px;
+    padding: 20px;
     box-sizing: border-box;
-    text-align: center;
 
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(14px);
     border-radius: 22px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 
-    margin-top: 60px;
-    animation: fadeUp 1s ease forwards;
+    margin-top: 40px;
+    text-align: center;
+
     opacity: 0;
+    animation: fadeUp 1s ease forwards;
 }
 
 @keyframes fadeUp {
@@ -60,10 +65,26 @@ body {
 }
 
 /* ----------------------------------------------------------
+   3. IMAGEN RESPONSIVE
+---------------------------------------------------------- */
+.app-logo {
+    width: 100%;
+    max-width: 260px; /* tamaño perfecto móvil */
+    height: auto;
+    border-radius: 18px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+    margin-bottom: 15px;
+}
+
+/* ----------------------------------------------------------
    4. TITULAR + SUBTÍTULO
 ---------------------------------------------------------- */
 .welcome-title {
-    font-size: 2.4rem;
+    font-size: 2rem; /* más compacto en móvil */
     font-weight: 700;
     margin: 0;
     text-shadow: 0 3px 6px rgba(0,0,0,0.35);
@@ -73,11 +94,11 @@ body {
 }
 
 .welcome-subtitle {
-    font-size: 1.1rem;
-    opacity: 0;
-    margin-top: 12px;
-    line-height: 1.5;
+    font-size: 1rem;
+    margin-top: 10px;
+    line-height: 1.4;
 
+    opacity: 0;
     animation: fadeUp 1s ease 1s forwards;
 }
 
@@ -85,19 +106,18 @@ body {
    5. FOOTER + BOTONES
 ---------------------------------------------------------- */
 .welcome-footer {
-    flex-shrink: 0;
     width: 100%;
-    max-width: 460px;
-    padding: 25px;
+    max-width: 480px;
+    padding: 20px;
     box-sizing: border-box;
 
-    animation: fadeUp 1s ease 1.3s forwards;
     opacity: 0;
+    animation: fadeUp 1s ease 1.3s forwards;
 }
 
-button {
+button, .btn-primary, .btn-secondary {
     width: 100%;
-    padding: 18px;
+    padding: 16px;
     font-size: 1.05rem;
     font-weight: 700;
     border-radius: 14px;
@@ -105,16 +125,18 @@ button {
     cursor: pointer;
     margin-bottom: 14px;
     transition: 0.2s ease;
-    letter-spacing: 0.2px;
 }
 
-/* --- BOTÓN PRINCIPAL ESTILO NEÓN --- */
+/* --- BOTÓN PRINCIPAL NEÓN --- */
 .btn-primary {
     background: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff);
     background-size: 200%;
     color: white;
     box-shadow: 0 6px 18px rgba(0, 150, 255, 0.4);
     animation: glowPulse 3s ease-in-out infinite;
+    text-align: center;
+    text-decoration: none;
+    display: block;
 }
 
 .btn-primary:hover {
@@ -128,7 +150,7 @@ button {
     100% { box-shadow: 0 6px 15px rgba(0, 150, 255, 0.4); }
 }
 
-/* --- SECUNDARIO GLASS --- */
+/* --- BOTÓN SECUNDARIO --- */
 .btn-secondary {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -141,7 +163,6 @@ button {
     transform: scale(1.03);
 }
 
-/* --- FEEDBACK TÁCTIL --- */
 button:active {
     transform: scale(0.97);
     opacity: 0.85;
@@ -150,29 +171,29 @@ button:active {
 /* ----------------------------------------------------------
    INPUT PREMIUM GLASS + NEÓN
 ---------------------------------------------------------- */
-
 .input-wrapper {
     width: 100%;
+    max-width: 420px;
     position: relative;
     margin-top: 22px;
 }
 
 .input-text {
     width: 100%;
-    padding: 16px 50px;
-    font-size: 1.15rem;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+
     border-radius: 14px;
     border: none;
     box-sizing: border-box;
 
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    text-align: left;
+    color: white;
 
     backdrop-filter: blur(8px);
     outline: none;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
@@ -195,11 +216,23 @@ button:active {
     transform: translateY(-50%);
     font-size: 1.3rem;
     opacity: 0.7;
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
 .input-text:focus + .input-icon {
     opacity: 1;
     transform: translateY(-50%) scale(1.15);
     color: #00c3ff;
+}
+
+/* ----------------------------------------------------------
+   6. RESPONSIVE EXTRAS
+---------------------------------------------------------- */
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 1.8rem;
+    }
+    .app-logo {
+        max-width: 220px;
+    }
 }
