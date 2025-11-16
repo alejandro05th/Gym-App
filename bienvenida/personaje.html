@@ -76,7 +76,6 @@
 <script>
     let selectedCoachName = null;
     
-    // --- CÓDIGO ANTIGUO (Funciona igual) ---
     function selectCoach(element, coachName) {
         const allCards = document.querySelectorAll('.coach-card');
         allCards.forEach(card => {
@@ -100,12 +99,11 @@
         }
     }
 
-    // --- CÓDIGO NUEVO (Para los puntos indicadores) ---
+    // --- CÓDIGO PARA LOS PUNTOS INDICADORES ---
     const slider = document.querySelector('.coach-slider-wrapper');
     const dots = document.querySelectorAll('.dot');
     const gap = 18; // El 'gap' definido en tu CSS
 
-    // Función para ir a una página al hacer clic en un punto
     function scrollToPage(pageIndex) {
         const pageWidth = slider.offsetWidth;
         slider.scrollTo({
@@ -114,15 +112,10 @@
         });
     }
 
-    // Función para actualizar los puntos al deslizar
     slider.addEventListener('scroll', () => {
         const pageWidth = slider.offsetWidth;
-        
-        // Calcula la página actual basándose en la posición del scroll
-        // Usamos Math.round para que cambie al pasar la mitad de la página
         let currentPage = Math.round(slider.scrollLeft / (pageWidth + gap));
 
-        // Actualiza la clase 'active' en los puntos
         dots.forEach((dot, index) => {
             if (index === currentPage) {
                 dot.classList.add('active');
