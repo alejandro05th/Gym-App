@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Elige Entrenador</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="personaje.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="welcome-content">
+        
+        <h1 class="welcome-title">Elige a tu entrenador</h1>
+        <p class="welcome-subtitle">Selecciona el coach que te guiará en tu progreso.</p>
+
+        <div class="coach-grid">
+            
+            <div class="coach-card" onclick="selectCoach(this, 'Aura')">
+                <img src="personajes/aura.png" alt="Coach Aura">
+                <span>COACH AURA</span>
+            </div>
+
+            <div class="coach-card" onclick="selectCoach(this, 'Mayá')">
+                <img src="personajes/mayá.png" alt="Coach Mayá">
+                <span>COACH MAYÁ</span>
+            </div>
+
+            <div class="coach-card" onclick="selectCoach(this, 'Hugo')">
+                <img src="personajes/hugo.png" alt="Coach Hugo">
+                <span>COACH HUGO</span>
+            </div>
+
+            <div class="coach-card" onclick="selectCoach(this, 'Sofía')">
+                <img src="personajes/sofía.png" alt="Coach Sofía">
+                <span>COACH SOFÍA</span>
+            </div>
+
+            <div class="coach-card" onclick="selectCoach(this, 'Marco')">
+                <img src="personajes/marco.png" alt="Coach Marco">
+                <span>COACH MARCO</span>
+            </div>
+
+            <div class="coach-card" onclick="selectCoach(this, 'Mayía')">
+                <img src="personajes/mayía.png" alt="Coach Mayía">
+                <span>COACH MAYÍA</span>
+            </div>
+
+        </div>
+        
+    </main>
+
+    <footer class="welcome-footer">
+        <button class="btn-primary" onclick="continuar()" id="btnContinuar" style="display:none;">
+            Seleccionar
+        </button>
+    </footer>
+
+<script>
+    let selectedCoachName = null;
+
+    function selectCoach(element, coachName) {
+        // 1. Quitar la clase 'selected' de todas las tarjetas
+        const allCards = document.querySelectorAll('.coach-card');
+        allCards.forEach(card => {
+            card.classList.remove('selected');
+        });
+
+        // 2. Añadir 'selected' solo a la tarjeta clickeada
+        element.classList.add('selected');
+        
+        selectedCoachName = coachName;
+
+        // 3. Actualizar y mostrar el botón del footer
+        const btn = document.getElementById('btnContinuar');
+        btn.innerText = "Empezar con " + coachName;
+        btn.style.display = "block";
+    }
+
+    function continuar() {
+        if (selectedCoachName) {
+            // 4. Guardar el coach seleccionado
+            localStorage.setItem("selectedCoach", selectedCoachName);
+            
+            // 5. Redirigir a la siguiente página (ej. dashboard.html)
+            alert("¡Genial! Has seleccionado a " + selectedCoachName + ". ¡Vamos a empezar!");
+            // window.location.href = "dashboard.html"; // <-- Descomenta esto para ir a tu siguiente página
+        }
+    }
+</script>
+
+</body>
+</html>
