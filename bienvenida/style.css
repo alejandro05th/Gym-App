@@ -1,157 +1,173 @@
-/* --- Reseteo y Estilos Base --- */
+/* ----------------------------------------------------------
+   0. RESET Y BASE
+---------------------------------------------------------- */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    /* ¡CLAVE! Oculta el scroll y evita que la animación 
-       cause desbordamientos al inicio */
-    overflow: hidden; 
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* --- 1. EL FONDO "DE ENSUEÑO" --- */
+/* ----------------------------------------------------------
+   1. FONDO ANIMADO PREMIUM
+---------------------------------------------------------- */
 body {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido de 450px */
-    
-    /* ¡NUEVO! Un gradiente premium que grita "tecnología y fitness".
-       Es más limpio y profesional que una foto de fondo. */
-    background: linear-gradient(160deg, #1e3c72 0%, #2a5298 100%);
-    
-    color: #ffffff; /* Texto blanco por defecto */
+    align-items: center;
+    background: linear-gradient(135deg, #1e3c72, #2a5298, #4f2bb7, #1e3c72);
+    background-size: 300% 300%;
+    animation: bgAnimation 15s ease infinite;
+    color: #fff;
 }
 
-/* --- 2. LAS ANIMACIONES "EMBAUCADORAS" --- */
-/* Definimos una animación de "aparecer y subir" */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px); /* Empieza 30px abajo */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0); /* Termina en su posición original */
-    }
+@keyframes bgAnimation {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* --- 3. CONTENIDO PRINCIPAL (Jerarquía) --- */
+/* ----------------------------------------------------------
+   2. CONTENEDOR GLASS-MORPHISM
+---------------------------------------------------------- */
 .welcome-content {
-    flex-grow: 1; /* Empuja el footer hacia abajo */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 25px;
     width: 100%;
+    max-width: 460px;
     box-sizing: border-box;
-    max-width: 450px; /* El "contenedor" de nuestra app */
-    
-    /* Hacemos que el contenido entre con la animación */
-    /* animation: [nombre] [duración] [efecto] [delay] [fill-mode] */
-    animation: fadeInUp 0.8s ease-out 0.2s forwards;
-    
-    /* Empieza invisible para que la animación funcione */
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    margin-top: 60px;
+    animation: fadeUp 1s ease forwards;
     opacity: 0;
 }
 
-/* --- 4. LA IMAGEN (El cambio más grande) --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   3. LOGO ANIMADO CON BRILLO
+---------------------------------------------------------- */
 .app-logo {
-    width: 50%; /* Ocupa el 100% del contenedor */
-    max-width: 350px; /* Un tope para que no sea gigante */
-    height: auto; /* Mantiene la proporción */
-    border-radius: 16px; /* Bordes suaves y modernos */
-    margin-bottom: 30px; /* Más espacio para respirar */
-    
-    /* Un efecto "flotante" de app premium */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    
-    /* Animación: entra un poco después que el contenedor */
-    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    width: 90%;
+    max-width: 330px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+
     opacity: 0;
+    animation: fadePop 1s ease 0.4s forwards, float 4.5s ease-in-out infinite;
 }
 
-/* --- 5. TIPOGRAFÍA REFINADA --- */
+@keyframes fadePop {
+    0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+   4. TITULAR + SUBTÍTULO
+---------------------------------------------------------- */
 .welcome-title {
-    /* Más pequeño para dar protagonismo a la imagen */
-    font-size: 2.0rem; 
+    font-size: 2.4rem;
     font-weight: 700;
-    margin: 0 0 12px 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    
-    /* Animación: entra después de la imagen */
-    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    margin: 0;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.35);
+
     opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
 }
 
 .welcome-subtitle {
-    font-size: 1.0rem;
-    font-weight: 400;
-    margin: 0;
-    max-width: 320px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    font-size: 1.1rem;
+    opacity: 0;
+    margin-top: 12px;
     line-height: 1.5;
-    
-    /* Sutilmente menos importante */
-    opacity: 0.8;
-    
-    /* Animación: entra después del título */
-    animation: fadeInUp 0.8s ease-out 0.8s forwards;
-    /* La opacidad inicial (0) la pilla de esta animación */
+
+    animation: fadeUp 1s ease 1s forwards;
 }
 
-/* --- 6. FOOTER CON BOTONES (La Acción) --- */
+/* ----------------------------------------------------------
+   5. FOOTER + BOTONES
+---------------------------------------------------------- */
 .welcome-footer {
-    flex-shrink: 0; /* No se encoge */
-    padding: 20px 25px;
+    flex-shrink: 0;
     width: 100%;
+    max-width: 460px;
+    padding: 25px;
     box-sizing: border-box;
-    max-width: 450px;
-    background: transparent; /* El fondo ya es bonito */
-    
-    /* Animación: es lo último en entrar */
-    animation: fadeInUp 0.8s ease-out 1.0s forwards;
+
+    animation: fadeUp 1s ease 1.3s forwards;
     opacity: 0;
 }
 
-/* --- 7. BOTONES "PREMIUM" --- */
 button {
     width: 100%;
-    padding: 16px; /* Grandes, fáciles de tocar */
-    font-size: 1.0rem;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    /* Transición para el estado :active */
-    transition: all 0.1s ease-in-out; 
-}
-
-/* ¡NUEVO! Feedback táctil para móvil */
-/* Esto se activa CUANDO PRESIONAS el botón */
-button:active {
-    /* El botón se "hunde" un poco */
-    transform: scale(0.98); 
-    opacity: 0.9;
-}
-
-.btn-primary {
-    /* ¡NUEVO! Un gradiente que atrae la mirada */
-    background: linear-gradient(90deg, #007BFF 0%, #00C6FF 100%);
-    color: #ffffff;
+    padding: 18px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 14px;
     border: none;
-    margin-bottom: 12px;
-    
-    /* ¡NUEVO! Un "brillo" sutil del color del botón */
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    cursor: pointer;
+    margin-bottom: 14px;
+    transition: 0.2s ease;
+    letter-spacing: 0.2px;
 }
 
+/* --- BOTÓN PRINCIPAL ESTILO NEÓN --- */
+.btn-primary {
+    background: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff);
+    background-size: 200%;
+    color: white;
+    box-shadow: 0 6px 18px rgba(0, 150, 255, 0.4);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+    background-position: 100%;
+    transform: scale(1.03);
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 6px 15px rgba(0, 150, 255, 0.4); }
+    50% { box-shadow: 0 8px 25px rgba(0, 150, 255, 0.75); }
+    100% { box-shadow: 0 6px 15px rgba(0, 150, 255, 0.4); }
+}
+
+/* --- SECUNDARIO GLASS --- */
 .btn-secondary {
-    background: transparent;
-    color: #ffffff;
-    /* Un borde más sutil, semi-transparente */
-    border: 2px solid rgba(255, 255, 255, 0.5); 
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    backdrop-filter: blur(6px);
 }
 
-.btn-secondary:hover { /* :hover para escritorio */
-    background-color: rgba(255, 255, 255, 0.1);
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.03);
+}
+
+/* --- FEEDBACK TÁCTIL --- */
+button:active {
+    transform: scale(0.97);
+    opacity: 0.85;
 }
