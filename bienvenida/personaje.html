@@ -99,16 +99,13 @@
     }
 
     function continuar() {
-        if (selectedCoachName && selectedBodyType) {
-            // Guardamos AMBAS cosas
-            localStorage.setItem("selectedCoach", selectedCoachName);
-            localStorage.setItem("selectedBodyType", selectedBodyType); // <-- NUEVO
-            
-            // ¡AQUÍ ESTÁ LA MAGIA!
-            // Esta línea (que tenías comentada) envía al usuario a la nueva página
-            window.location.href = "cuerpo.html"; // <-- CAMBIADO Y ACTIVADO
-        }
+    if (selectedCoachName && selectedBodyType) {
+        localStorage.setItem("selectedCoach", selectedCoachName);
+        localStorage.setItem("selectedBodyType", selectedBodyType);
+        window.location.href = "../cuerpo.html"; // Ruta correcta
     }
+}
+
 
     // --- CÓDIGO PARA LOS PUNTOS INDICADORES (Esto no cambia) ---
     const slider = document.querySelector('.coach-slider-wrapper');

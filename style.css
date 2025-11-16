@@ -1,33 +1,48 @@
-#titulo-pagina {
-    color: black;
-    text-align: center;
-}
+/* Estilo general de la página */
 body {
-    background-color: white;
-    font-faily: Arial;
-    color: green;
     margin: 0;
-    .contenedor {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5; /* Fondo suave */
+    color: #333;
+}
+
+#titulo-pagina {
+    color: #1a1a1a;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.contenedor {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh; /*regulamos altura del humano*/
-    }
+    height: 90vh;
 }
 
-
-svg {
-    width: 500px;
-}
-
+/* Estilo general para todos los paths del SVG */
 svg path {
-    fill: #ffffff !important;         /* Relleno blanco */
-    stroke: #000000 !important;      /* Contorno negro */
-    stroke-width: 0.5px !important;  /* Grosor del contorno (ajusta si te gusta) */
-    transition: fill 0.2s;           /* Animación suave al cambiar de color */
+    fill: #ffffff;      /* Cuerpo blanco por defecto */
+    stroke: #000000;    /* Contorno negro */
+    stroke-width: 1px;
+    transition: all 0.3s ease;
 }
 
-svg path:hover {
-    fill: blue !important;   /* Se pone rojo (puedes cambiar el color) */
-    cursor: pointer;            
+/* Estilo solo para músculos clickeables */
+svg path.musculo:hover {
+    fill: #1e90ff;      /* Azul al pasar el mouse */
+    stroke: #dfdfdf;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Mantener sombra elegante solo en el contenedor */
+.contenedor svg {
+    width: 500px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
 }
