@@ -16,36 +16,44 @@ body {
     letter-spacing: 2px;
 }
 
-/* CORRECCIÓN #1 */
+/* Contenedor SVG centrado */
 #contenedor-svg {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 90vw;
     margin: 20px auto;
 }
 
-/* CORRECCIÓN #2 */
-#contenedor-svg svg path {
-    fill: #ffffff;
-    stroke: #000000;
+/* Estilo general de todos los músculos */
+#contenedor-svg svg path.musculo {
+    fill: #ffffff;       /* Cuerpo blanco por defecto */
+    stroke: #000000;     /* Contorno negro */
     stroke-width: 1px;
     transition: all 0.3s ease;
 }
 
-
-/* CORRECCIÓN #4 */
+/* SVG general */
 #contenedor-svg svg {
-    width: 100%;
+    width: 80%;               /* ocupa 80% del contenedor en desktop */
+    max-width: 500px;
+    height: auto;
     transition: transform 0.3s ease;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
 
-/* ⭐ NUEVO: Músculo seleccionado (AZUL) */
-#contenedor-svg svg path.seleccionado {
+/* Músculo seleccionado (azul) */
+#contenedor-svg svg path.musculo.seleccionado {
     fill: #1e90ff !important;
     stroke: #003f87 !important;
     transform: scale(1.08);
+}
+
+/* ✅ Ajuste móvil: cuerpo más grande */
+@media (max-width: 768px) {
+    #contenedor-svg svg {
+        width: 95%;           /* casi todo el ancho de pantalla */
+        max-width: none;      /* quitar límite */
+    }
 }
