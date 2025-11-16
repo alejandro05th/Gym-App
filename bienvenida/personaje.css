@@ -37,24 +37,35 @@
     margin-top: 25px;
 }
 
-/* 3. PÁGINA INDIVIDUAL (Contiene la grid 2x2... ahora 2x1) */
+/* ----------------------------------------------------------
+   3. PÁGINA INDIVIDUAL (¡AQUÍ ESTÁ EL CAMBIO!)
+---------------------------------------------------------- */
 .coach-page {
-    width: 100%; /* Cada página ocupa el 100% del wrapper */
-    flex-shrink: 0; /* ¡MUY IMPORTANTE! Evita que la página se encoja */
-    scroll-snap-align: start; /* Fija la página al inicio del scroll */
+    width: 100%; 
+    flex-shrink: 0; 
+    scroll-snap-align: start; 
     
-    /* La grid de 2x1 va AQUÍ dentro */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* === CAMBIO PRINCIPAL === */
+    /* En lugar de 'grid', usamos 'flex' para centrar las tarjetas */
+    display: flex;
+    justify-content: center; /* Centra los dos coaches en la página */
+    align-items: flex-start; /* Los alinea arriba */
     gap: 18px;
     
-    /* Ajuste para que el 'width: 100%' funcione bien */
     box-sizing: border-box; 
+    /* Se elimina 'grid-template-columns: 1fr 1fr;' */
 }
 
 
-/* 4. TARJETA DE PERSONAJE (Sin cambios) */
+/* ----------------------------------------------------------
+   4. TARJETA DE PERSONAJE (¡AQUÍ ESTÁ EL OTRO CAMBIO!)
+---------------------------------------------------------- */
 .coach-card {
+    /* === CAMBIO PRINCIPAL === */
+    /* Les damos un ancho fijo para que "no ocupen mucho" */
+    width: 140px;
+    
+    /* El resto de estilos son los mismos */
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 18px;
@@ -117,16 +128,12 @@
     }
 }
 
-/* ----------------------------------------------------------
-   7. (NUEVO) ESTILOS PARA LOS PUNTOS INDICADORES
----------------------------------------------------------- */
+/* 7. ESTILOS PARA LOS PUNTOS INDICADORES (Sin cambios) */
 .slider-indicators {
     text-align: center;
-    margin-top: 20px; /* Espacio entre el slider y los puntos */
-    
-    /* Animación de entrada */
+    margin-top: 20px; 
     opacity: 0;
-    animation: fadeUp 1s ease 1.2s forwards; /* Aparece un poco después */
+    animation: fadeUp 1s ease 1.2s forwards; 
 }
 
 .dot {
@@ -143,6 +150,5 @@
 .dot.active {
     background: #fff;
     transform: scale(1.2);
-    /* Efecto neón a juego con el resto */
     box-shadow: 0 0 10px #00c3ff, 0 0 5px #fff;
 }
