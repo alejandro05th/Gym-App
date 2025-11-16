@@ -75,7 +75,8 @@
 
 <script>
     let selectedCoachName = null;
-    
+    let selectedBodyType = null; // <-- NUEVO: Para saber si es 'hombre' o 'mujer'
+
     function selectCoach(element, coachName) {
         const allCards = document.querySelectorAll('.coach-card');
         allCards.forEach(card => {
@@ -83,8 +84,14 @@
         });
 
         element.classList.add('selected');
-        
         selectedCoachName = coachName;
+
+        // <-- NUEVO: Decide qué cuerpo base usar
+        if (coachName === 'Hugo' || coachName === 'Marco') {
+            selectedBodyType = 'hombre';
+        } else if (coachName === 'Aura' || coachName === 'Mayá' || coachName === 'Sofía' || coachName === 'Mayía') {
+            selectedBodyType = 'mujer';
+        }
 
         const btn = document.getElementById('btnContinuar');
         btn.innerText = "Empezar con " + coachName;
@@ -92,34 +99,37 @@
     }
 
     function continuar() {
-        if (selectedCoachName) {
+        if (selectedCoachName && selectedBodyType) {
+            // Guardamos AMBAS cosas
             localStorage.setItem("selectedCoach", selectedCoachName);
-            alert("¡Genial! Has seleccionado a " + selectedCoachName + ". ¡Vamos a empezar!");
-            // window.location.href = "dashboard.html"; 
+            localStorage.setItem("selectedBodyType", selectedBodyType); // <-- NUEVO
+            
+            // ¡AQUÍ ESTÁ LA MAGIA!
+            // Esta línea (que tenías comentada) envía al usuario a la nueva página
+            window.location.href = "cuerpo.html"; // <-- CAMBIADO Y ACTIVADO
         }
     }
 
-    // --- CÓDIGO PARA LOS PUNTOS INDICADORES ---
+    // --- CÓDIGO PARA LOS PUNTOS INDICADORES (Esto no cambia) ---
     const slider = document.querySelector('.coach-slider-wrapper');
     const dots = document.querySelectorAll('.dot');
     const gap = 18; // El 'gap' definido en tu CSS
 
     function scrollToPage(pageIndex) {
-    const pageWidth = slider.offsetWidth;
-    slider.scrollTo({
-        left: pageIndex * pageWidth,
-        behavior: 'smooth'
-    });
-}
+        const pageWidth = slider.offsetWidth;
+        slider.scrollTo({
+            left: pageIndex * pageWidth,
+            behavior: 'smooth'
+        });
+    }
 
-slider.addEventListener('scroll', () => {
-    const pageWidth = slider.offsetWidth;
-    let currentPage = Math.round(slider.scrollLeft / pageWidth);
-
-    dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentPage);
+    slider.addEventListener('scroll', () => {
+        const pageWidth = slider.offsetWidth;
+        let currentPage = Math.round(slider.scrollLeft / pageWidth);
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentPage);
+        });
     });
-});
 
 </script>
 
