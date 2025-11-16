@@ -105,25 +105,22 @@
     const gap = 18; // El 'gap' definido en tu CSS
 
     function scrollToPage(pageIndex) {
-        const pageWidth = slider.offsetWidth;
-        slider.scrollTo({
-            left: pageIndex * (pageWidth + gap),
-            behavior: 'smooth'
-        });
-    }
-
-    slider.addEventListener('scroll', () => {
-        const pageWidth = slider.offsetWidth;
-        let currentPage = Math.round(slider.scrollLeft / (pageWidth + gap));
-
-        dots.forEach((dot, index) => {
-            if (index === currentPage) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
+    const pageWidth = slider.offsetWidth;
+    slider.scrollTo({
+        left: pageIndex * pageWidth,
+        behavior: 'smooth'
     });
+}
+
+slider.addEventListener('scroll', () => {
+    const pageWidth = slider.offsetWidth;
+    let currentPage = Math.round(slider.scrollLeft / pageWidth);
+
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentPage);
+    });
+});
+
 </script>
 
 </body>
