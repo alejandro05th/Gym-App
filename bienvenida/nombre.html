@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Tu nombre</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="welcome-content">
+        
+        <h1 class="welcome-title">¿Cómo te llamas?</h1>
+        <p class="welcome-subtitle">Este nombre aparecerá en tu progreso y entrenamientos.</p>
+
+        <!-- ⭐ INPUT PREMIUM -->
+        <div class="input-wrapper">
+            <input type="text" id="nombre" class="input-text" placeholder="Escribe tu nombre">
+            <span class="input-icon">👤</span>
+        </div>
+        
+        <button class="btn-primary" onclick="guardarNombre()">Guardar</button>
+
+        <p id="mensaje" class="welcome-subtitle" style="margin-top: 15px; font-size: 1.2rem;"></p>
+
+    </main>
+
+    <footer class="welcome-footer">
+        <button class="btn-secondary" onclick="continuar()" id="btnContinuar" style="display:none;">
+            Continuar
+        </button>
+    </footer>
+
+<script>
+function guardarNombre() {
+    let nombre = document.getElementById("nombre").value.trim();
+
+    if (nombre === "") {
+        alert("Por favor escribe tu nombre.");
+        return;
+    }
+
+    // Guardar globalmente para toda la app
+    localStorage.setItem("nombreUsuario", nombre);
+
+    // Mostrar mensaje
+    document.getElementById("mensaje").innerText =
+        "¡Comencemos, " + nombre + "!";
+
+    // Mostrar botón continuar
+    document.getElementById("btnContinuar").style.display = "block";
+}
+
+function continuar() {
+    window.location.href = "personaje.html";
+}
+</script>
+
+</body>
+</html>

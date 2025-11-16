@@ -60,31 +60,6 @@ body {
 }
 
 /* ----------------------------------------------------------
-   3. LOGO ANIMADO CON BRILLO
----------------------------------------------------------- */
-.app-logo {
-    width: 90%;
-    max-width: 330px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
-
-    opacity: 0;
-    animation: fadePop 1s ease 0.4s forwards, float 4.5s ease-in-out infinite;
-}
-
-@keyframes fadePop {
-    0% { opacity: 0; transform: translateY(30px) scale(0.9); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0); }
-}
-
-/* ----------------------------------------------------------
    4. TITULAR + SUBTÍTULO
 ---------------------------------------------------------- */
 .welcome-title {
@@ -170,4 +145,61 @@ button {
 button:active {
     transform: scale(0.97);
     opacity: 0.85;
+}
+
+/* ----------------------------------------------------------
+   INPUT PREMIUM GLASS + NEÓN
+---------------------------------------------------------- */
+
+.input-wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: 22px;
+}
+
+.input-text {
+    width: 100%;
+    padding: 16px 50px;
+    font-size: 1.15rem;
+    border-radius: 14px;
+    border: none;
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    text-align: left;
+
+    backdrop-filter: blur(8px);
+    outline: none;
+    transition: all 0.3s ease;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.input-text::placeholder {
+    color: rgba(230, 230, 230, 0.7);
+}
+
+.input-text:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #00c3ff;
+    box-shadow: 0 0 18px #00c3ffaa;
+    transform: scale(1.02);
+}
+
+.input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    opacity: 0.7;
+    transition: 0.3s ease;
+}
+
+.input-text:focus + .input-icon {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.15);
+    color: #00c3ff;
 }
