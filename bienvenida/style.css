@@ -57,8 +57,7 @@ body {
 
 /* --- 4. LA IMAGEN (El cambio más grande) --- */
 .app-logo {
-    /* ¡YA NO ES UN LOGO, ES LA ESTRELLA! */
-    width: 100%; /* Ocupa el 100% del contenedor */
+    width: 50%; /* Ocupa el 100% del contenedor */
     max-width: 350px; /* Un tope para que no sea gigante */
     height: auto; /* Mantiene la proporción */
     border-radius: 16px; /* Bordes suaves y modernos */
