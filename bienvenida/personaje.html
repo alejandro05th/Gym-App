@@ -1,134 +1,262 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Elige Entrenador</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Elige Entrenador</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="personaje.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="personaje.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Reset y base */
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100%; width: 100%;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      background: linear-gradient(135deg, #1e3c72, #2a5298, #4f2bb7, #1e3c72);
+      background-size: 300% 300%;
+      animation: bgAnimation 15s ease infinite;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    @keyframes bgAnimation {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    main.welcome-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      margin: 40px 0;
+      text-align: center;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1.welcome-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.35);
+    }
+
+    p.welcome-subtitle {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    /* Grid para los entrenadores */
+    .coach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .coach-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+
+    .coach-card:hover, .coach-card.selected {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(0,150,255,0.7);
+      background: rgba(0,195,255,0.3);
+      color: #00c3ff;
+    }
+
+    .coach-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .coach-card span {
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    footer.welcome-footer {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff);
+      background-size: 200%;
+      color: white;
+      box-shadow: 0 6px 18px rgba(0, 150, 255, 0.4);
+      animation: glowPulse 3s ease-in-out infinite;
+      text-align: center;
+      display: none; /* por defecto oculto */
+      transition: background-position 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-position: 100%;
+      transform: scale(1.03);
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 6px 15px rgba(0, 150, 255, 0.4); }
+      50% { box-shadow: 0 8px 25px rgba(0, 150, 255, 0.75); }
+      100% { box-shadow: 0 6px 15px rgba(0, 150, 255, 0.4); }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      h1.welcome-title {
+        font-size: 1.6rem;
+      }
+
+      .coach-card img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .coach-card span {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <main class="welcome-content">
+    <h1 class="welcome-title">Elige a tu entrenador</h1>
+    <p class="welcome-subtitle">Toca para seleccionar tu entrenador favorito.</p>
 
-    <main class="welcome-content">
-        
-        <h1 class="welcome-title">Elige a tu entrenador</h1>
-        <p class="welcome-subtitle">Desliza para ver todas las opciones.</p>
+    <div class="coach-grid">
+      <div class="coach-card" onclick="selectCoach(this, 'Aura')">
+        <img src="personajes/aura.png" alt="Coach Aura" />
+        <span>COACH AURA</span>
+      </div>
+      <div class="coach-card" onclick="selectCoach(this, 'Mayá')">
+        <img src="personajes/maya.png" alt="Coach Mayá" />
+        <span>COACH MAYÁ</span>
+      </div>
+      <div class="coach-card" onclick="selectCoach(this, 'Hugo')">
+        <img src="personajes/hugo.png" alt="Coach Hugo" />
+        <span>COACH HUGO</span>
+      </div>
+      <div class="coach-card" onclick="selectCoach(this, 'Sofía')">
+        <img src="personajes/sofia.png" alt="Coach Sofía" />
+        <span>COACH SOFÍA</span>
+      </div>
+      <div class="coach-card" onclick="selectCoach(this, 'Marco')">
+        <img src="personajes/marco.png" alt="Coach Marco" />
+        <span>COACH MARCO</span>
+      </div>
+      <div class="coach-card" onclick="selectCoach(this, 'Mayía')">
+        <img src="personajes/mayia.png" alt="Coach Mayía" />
+        <span>COACH MAYÍA</span>
+      </div>
+    </div>
+  </main>
 
-        <div class="coach-slider-wrapper">
-            
-            <div class="coach-grid-slider">
-                
-                <div class="coach-page">
-                    <div class="coach-card" onclick="selectCoach(this, 'Aura')">
-                        <img src="personajes/aura.png" alt="Coach Aura">
-                        <span>COACH AURA</span>
-                    </div>
-                    <div class="coach-card" onclick="selectCoach(this, 'Mayá')">
-                        <img src="personajes/mayá.png" alt="Coach Mayá">
-                        <span>COACH MAYÁ</span>
-                    </div>
-                </div>
+  <footer class="welcome-footer">
+    <button class="btn-primary" id="btnContinuar" onclick="continuar()" style="display:none;">
+      Seleccionar
+    </button>
+  </footer>
 
-                <div class="coach-page">
-                    <div class="coach-card" onclick="selectCoach(this, 'Hugo')">
-                        <img src="personajes/hugo.png" alt="Coach Hugo">
-                        <span>COACH HUGO</span>
-                    </div>
-                    <div class="coach-card" onclick="selectCoach(this, 'Sofía')">
-                        <img src="personajes/sofía.png" alt="Coach Sofía">
-                        <span>COACH SOFÍA</span>
-                    </div>
-                </div>
-
-                <div class="coach-page">
-                    <div class="coach-card" onclick="selectCoach(this, 'Marco')">
-                        <img src="personajes/marco.png" alt="Coach Marco">
-                        <span>COACH MARCO</span>
-                    </div>
-                    <div class="coach-card" onclick="selectCoach(this, 'Mayía')">
-                        <img src="personajes/mayía.png" alt="Coach Mayía">
-                        <span>COACH MAYÍA</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="slider-indicators">
-            <span class="dot active" onclick="scrollToPage(0)"></span>
-            <span class="dot" onclick="scrollToPage(1)"></span>
-            <span class="dot" onclick="scrollToPage(2)"></span>
-        </div>
-        
-    </main>
-
-    <footer class="welcome-footer">
-        <button class="btn-primary" onclick="continuar()" id="btnContinuar" style="display:none;">
-            Seleccionar
-        </button>
-    </footer>
-
-<script>
+  <script>
     let selectedCoachName = null;
-    let selectedBodyType = null; // <-- NUEVO: Para saber si es 'hombre' o 'mujer'
+    let lastSelectedCard = null;
 
     function selectCoach(element, coachName) {
-        const allCards = document.querySelectorAll('.coach-card');
-        allCards.forEach(card => {
-            card.classList.remove('selected');
-        });
-
-        element.classList.add('selected');
-        selectedCoachName = coachName;
-
-        // <-- NUEVO: Decide qué cuerpo base usar
-        if (coachName === 'Hugo' || coachName === 'Marco') {
-            selectedBodyType = 'hombre';
-        } else if (coachName === 'Aura' || coachName === 'Mayá' || coachName === 'Sofía' || coachName === 'Mayía') {
-            selectedBodyType = 'mujer';
-        }
-
-        const btn = document.getElementById('btnContinuar');
-        btn.innerText = "Empezar con " + coachName;
-        btn.style.display = "block";
+      // Deseleccionar anterior
+      if (lastSelectedCard) {
+        lastSelectedCard.classList.remove('selected');
+      }
+      // Seleccionar actual
+      element.classList.add('selected');
+      lastSelectedCard = element;
+      selectedCoachName = coachName;
+      document.getElementById('btnContinuar').style.display = 'block';
     }
 
     function continuar() {
-    if (selectedCoachName && selectedBodyType) {
-        localStorage.setItem("selectedCoach", selectedCoachName);
-        localStorage.setItem("selectedBodyType", selectedBodyType);
-        window.location.href = "../cuerpo.html"; // Ruta correcta
+      if (!selectedCoachName) {
+        alert('Por favor selecciona un entrenador');
+        return;
+      }
+      // Redirigir según coach seleccionado
+      switch (selectedCoachName.toLowerCase()) {
+        case 'aura':
+          window.location.href = 'aura.html';
+          break;
+        case 'mayá':
+          window.location.href = 'maya.html';
+          break;
+        case 'hugo':
+          window.location.href = 'hugo.html';
+          break;
+        case 'sofía':
+          window.location.href = 'sofia.html';
+          break;
+        case 'marco':
+          window.location.href = '../../cuerpos/marco/marco.html';
+          break;
+        case 'mayía':
+          window.location.href = 'mayia.html';
+          break;
+        default:
+          alert('No hay página para este entrenador');
+      }
     }
-}
-
-
-    // --- CÓDIGO PARA LOS PUNTOS INDICADORES (Esto no cambia) ---
-    const slider = document.querySelector('.coach-slider-wrapper');
-    const dots = document.querySelectorAll('.dot');
-    const gap = 18; // El 'gap' definido en tu CSS
-
-    function scrollToPage(pageIndex) {
-        const pageWidth = slider.offsetWidth;
-        slider.scrollTo({
-            left: pageIndex * pageWidth,
-            behavior: 'smooth'
-        });
-    }
-
-    slider.addEventListener('scroll', () => {
-        const pageWidth = slider.offsetWidth;
-        let currentPage = Math.round(slider.scrollLeft / pageWidth);
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentPage);
-        });
-    });
-
-</script>
-
+  </script>
 </body>
 </html>
