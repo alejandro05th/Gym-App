@@ -134,36 +134,7 @@
     50% { box-shadow: 0 7px 22px rgba(0, 150, 255, 0.75); }
     100% { box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4); }
   }
-
-  /* Barra inferior de navegación */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    padding: 10px 0;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    box-sizing: border-box;
-  }
-
-  .bottom-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 6px 12px;
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-
-  .bottom-nav a:hover {
-    color: #00c3ff;
-    transform: scale(1.1);
-  }
+ 
 
   /* Responsive */
   @media (max-width: 480px) {
@@ -220,13 +191,6 @@
     Seleccionar
   </button>
 </footer>
-
-<!-- Barra inferior de navegación -->
-<nav class="bottom-nav">
-  <a href="#">Casa</a>
-  <a href="../../Gym-App/gym-heatmap">Calendario</a>
-  <a href="../../Gym-App/registro-pesos">Pesos</a>
-</nav>
 
 <script>
 let selectedCoachName = null;
