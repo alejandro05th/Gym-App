@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Calendar PRO — Móvil</title>
+
+<style>
+:root{
+  --bg:#0e0f14; --card:#161821; --card2:#1e2130; --text:#e5e7eb; --sub:#9ca3af; --accent:#10b981;
+  --grid-size:48px; --radius:12px; --gap:8px; --transition:.18s;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);padding:16px;}
+.app{max-width:420px;margin:0 auto}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+h1{font-size:20px;margin:0}
+.sub{color:var(--sub);font-size:13px}
+.card{background:var(--card);padding:12px;border-radius:14px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.stats{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.stat{font-size:13px;color:var(--sub)}
+.big{font-weight:700;color:var(--text)}
+.controls{display:flex;gap:8px;align-items:center}
+.btn{background:transparent;border:1px solid rgba(255,255,255,.06);padding:8px 10px;border-radius:10px;color:var(--text);font-size:13px}
+.month-nav{display:flex;align-items:center;gap:10px}
+.calendar-wrap{background:linear-gradient(180deg, rgba(15,17,23,0.6), rgba(24,24,32,0.8));padding:10px;border-radius:14px}
+.day-names{display:grid;grid-template-columns:repeat(7, 1fr);gap:6px;margin-bottom:8px}
+.day-name{font-size:11px;color:var(--sub);text-align:center}
+.grid{display:grid;grid-template-columns:repeat(7, var(--grid-size));gap:var(--gap);justify-content:center}
+.cell{width:var(--grid-size);height:var(--grid-size);border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text);user-select:none;transition:transform var(--transition), background var(--transition);}
+.cell:active{transform:scale(.98)}
+.lvl0{background:#2d3144}
+.lvl1{background:#34d399}
+.lvl2{background:#10b981}
+.lvl3{background:#059669}
+.lvl4{background:#047857}
+.today{box-shadow:0 0 0 2px rgba(16,185,129,.12);}
+.note-dot{width:8px;height:8px;border-radius:50%;background:#ffd166;position:absolute;bottom:6px;right:6px;}
+.tooltip{position:fixed;background:#0b1220cc;color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;display:none;z-index:60}
+.footer{display:flex;justify-content:space-between;gap:10px;margin-top:10px}
+.legend{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--sub)}
+.small{font-size:12px;color:var(--sub)}
+@media (max-width:420px){:root{--grid-size:44px}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div>
+      <h1>Gym Calendar PRO</h1>
+      <div class="sub">Móvil • Calendario mensual con notas</div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn" class="btn">◀</button>
+      <div id="monthLabel" class="big">—</div>
+      <button id="nextBtn" class="btn">▶</button>
+    </div>
+  </div>
+
+  <div class="card stats">
+    <div>
+      <div class="small">Racha actual</div>
+      <div class="big" id="streak">0</div>
+      <div class="small">Máx: <span id="maxStreak">0</span></div>
+    </div>
+    <div>
+      <div class="small">Año</div>
+      <div class="big" id="yearStat">0</div>
+      <div class="small">Mes</div>
+      <div class="big" id="monthStat">0</div>
+    </div>
+  </div>
+
+  <div class="calendar-wrap card">
+    <div class="day-names" id="dayNames"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="footer">
+    <div class="legend">
+      <div style="width:12px;height:12px;border-radius:4px;background:#34d399"></div><div class="small">Visto</div>
+    </div>
+    <div class="small">Mantén pulsado para nota • Pulsa para marcar/deseleccionar</div>
+  </div>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+(function(){
+  // Storage keys
+  const YEAR = new Date().getFullYear();
+  const DATA_KEY = 'gym_data_' + YEAR;
+  const META_KEY = 'gym_meta_' + YEAR; // store max streak
+
+  // DOM
+  const gridEl = document.getElementById('grid');
+  const dayNamesEl = document.getElementById('dayNames');
+  const monthLabel = document.getElementById('monthLabel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const streakEl = document.getElementById('streak');
+  const maxStreakEl = document.getElementById('maxStreak');
+  const yearStatEl = document.getElementById('yearStat');
+  const monthStatEl = document.getElementById('monthStat');
+  const tooltip = document.getElementById('tooltip');
+
+  // Data load
+  let data = JSON.parse(localStorage.getItem(DATA_KEY) || '{}');
+  let meta = JSON.parse(localStorage.getItem(META_KEY) || JSON.stringify({maxStreak:0}));
+
+  // state: viewed month (0-11) default current month
+  let viewMonth = new Date().getMonth();
+
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const dayShort = ['L','M','X','J','V','S','D'];
+
+  // helpers
+  function fmt(d){ return d.toISOString().slice(0,10); }
+  function daysInMonth(y,m){ return new Date(y,m+1,0).getDate(); }
+  function isToday(d){ const t=new Date(); return d.getFullYear()===t.getFullYear() && d.getMonth()===t.getMonth() && d.getDate()===t.getDate(); }
+
+  // render day names
+  function renderDayNames(){ dayNamesEl.innerHTML=''; dayShort.forEach(n=>{ const e=document.createElement('div'); e.className='day-name'; e.textContent=n; dayNamesEl.appendChild(e); }); }
+
+  // render month grid
+  function render(){
+    gridEl.innerHTML='';
+    monthLabel.textContent = monthNames[viewMonth] + ' ' + YEAR;
+
+    const first = new Date(YEAR, viewMonth, 1);
+    const blanks = (first.getDay() + 6) % 7; // convert Sun(0) -> 6, Mon(1)->0
+
+    // blanks
+    for(let i=0;i<blanks;i++){ const b=document.createElement('div'); gridEl.appendChild(b); }
+
+    const total = daysInMonth(YEAR, viewMonth);
+
+    for(let d=1; d<=total; d++){
+      const date = new Date(YEAR, viewMonth, d);
+      const key = fmt(date);
+      const cell = document.createElement('div');
+      const lvl = data[key]?.lvl || 0;
+      cell.className = 'cell lvl' + lvl;
+      cell.textContent = d;
+      if(isToday(date)) cell.classList.add('today');
+      cell.style.position='relative';
+
+      // show note dot
+      if(data[key]?.note) {
+        const dot = document.createElement('div'); dot.className='note-dot'; cell.appendChild(dot);
+      }
+
+      // click toggles between 0 and 1 (selected/deselected)
+      let longPressed=false;
+      let pressTimer=null;
+
+      function saveData(){ localStorage.setItem(DATA_KEY, JSON.stringify(data)); }
+
+      cell.addEventListener('touchstart', (e)=>{
+        e.preventDefault();
+        longPressed=false;
+        pressTimer = setTimeout(()=>{
+          longPressed=true; openNotePrompt(key); }, 600);
+      }, {passive:false});
+
+      cell.addEventListener('touchend',(e)=>{ clearTimeout(pressTimer); if(!longPressed){ toggleDay(key); } }, {passive:true});
+
+      cell.addEventListener('mousedown',(e)=>{ longPressed=false; pressTimer = setTimeout(()=>{ longPressed=true; openNotePrompt(key); }, 600);} );
+      cell.addEventListener('mouseup',(e)=>{ clearTimeout(pressTimer); if(!longPressed) toggleDay(key); });
+      cell.addEventListener('mouseleave',()=> clearTimeout(pressTimer));
+
+      cell.addEventListener('mouseenter',(ev)=>{
+        showTooltip(ev, key);
+      });
+      cell.addEventListener('mousemove',(ev)=> showTooltip(ev, key));
+      cell.addEventListener('mouseleave',()=> hideTooltip());
+
+      gridEl.appendChild(cell);
+    }
+
+    calcStats();
+  }
+
+  function toggleDay(key){
+    const current = data[key]?.lvl || 0;
+    if(current>0){ // deselect
+      delete data[key];
+    } else { // select
+      data[key] = data[key] || {};
+      data[key].lvl = 1;
+    }
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    // after toggling, re-render only current month to reflect changes
+    render();
+    updateStreakAndMax();
+  }
+
+  function openNotePrompt(key){
+    const existing = data[key]?.note || '';
+    const note = prompt('Nota para ' + key + ':', existing);
+    if(note===null) return; // cancelled
+    if(note.trim()===''){ if(data[key]){ delete data[key].note; if(!data[key].lvl) delete data[key]; } }
+    else { data[key] = data[key] || {}; data[key].note = note; }
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    render();
+  }
+
+  function showTooltip(ev, key){
+    const info = data[key] ? ('Vas al gym' + (data[key].note ? ' • Nota: ' + data[key].note : '')) : 'No registrado';
+    tooltip.style.display='block';
+    tooltip.textContent = key + ' — ' + info;
+    tooltip.style.left = (ev.pageX + 8) + 'px';
+    tooltip.style.top = (ev.pageY - 40) + 'px';
+  }
+  function hideTooltip(){ tooltip.style.display='none'; }
+
+  // stats: year visited / days passed of year; month visited / days in current month
+  function calcStats(){
+    const now = new Date();
+    const startYear = new Date(YEAR,0,1);
+    const daysPassedYear = Math.floor((now - startYear) / 86400000) + 1;
+
+    let visitedYear = 0;
+    for(const k in data){ if(data[k].lvl>0) visitedYear++; }
+
+    const daysThisMonth = daysInMonth(YEAR, now.getMonth());
+    let visitedThisMonth = 0;
+    for(let d=1; d<=daysThisMonth; d++){
+      const k = fmt(new Date(YEAR, now.getMonth(), d));
+      if(data[k]?.lvl>0) visitedThisMonth++;
+    }
+
+    yearStatEl.textContent = visitedYear + ' / ' + daysPassedYear;
+    monthStatEl.textContent = visitedThisMonth + ' / ' + daysThisMonth;
+
+    // also show month-specific visited for viewed month? we keep above as current month
+  }
+
+  // streak calculation: consecutive days up to today (include today if marked)
+  function computeCurrentStreak(){
+    const now = new Date();
+    let streak = 0;
+    let d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    while(true){
+      const k = fmt(d);
+      if(data[k]?.lvl>0) streak++; else break;
+      d.setDate(d.getDate()-1);
+    }
+    return streak;
+  }
+
+  function updateStreakAndMax(){
+    const cur = computeCurrentStreak();
+    streakEl.textContent = cur;
+    // update max
+    meta.maxStreak = Math.max(meta.maxStreak || 0, cur);
+    maxStreakEl.textContent = meta.maxStreak;
+    localStorage.setItem(META_KEY, JSON.stringify(meta));
+  }
+
+  // navigation
+  prevBtn.addEventListener('click', ()=>{ viewMonth = (viewMonth + 11) % 12; render(); });
+  nextBtn.addEventListener('click', ()=>{ viewMonth = (viewMonth + 1) % 12; render(); });
+
+  // initial render
+  renderDayNames();
+  render();
+  updateStreakAndMax();
+
+})();
+</script>
+
+</body>
+</html>
