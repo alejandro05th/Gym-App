@@ -3536,14 +3536,36 @@ QmCC
        style="stroke-width:1.42158473" />
   </g>
 </svg>
+
 <div id="nav-placeholder"></div>
 
 <script>
-  fetch("../../navegacion.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("nav-placeholder").innerHTML = data;
+fetch("../../navegacion.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("nav-placeholder").innerHTML = data;
+
+    // Detectar la página actual
+    const currentPath = window.location.pathname;
+
+    // Seleccionar todos los enlaces
+    const links = document.querySelectorAll('.bottom-nav a');
+
+    links.forEach(link => {
+      // Hacer que "Casa" apunte a la página actual
+      if(link.textContent.trim() === "Casa") {
+        link.href = currentPath;
+      }
+
+      // Marcar el enlace activo
+      const linkPath = new URL(link.href).pathname;
+      if(linkPath === currentPath) {
+        link.classList.add('active');
+      }
     });
+  });
 </script>
+
+
 
 </body>

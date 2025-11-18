@@ -6,10 +6,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    padding: 10px 0;
-    border-top: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08); /* un poco más visible */
+    backdrop-filter: blur(12px);
+    padding: 14px 0; /* más alto para tocar mejor */
+    border-top: 1px solid rgba(255,255,255,0.2);
     box-sizing: border-box;
     z-index: 9999;
   }
@@ -17,20 +17,49 @@
   .bottom-nav a {
     color: #fff;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 6px 12px;
+    font-weight: 700; /* un poco más grueso */
+    font-size: 1.2rem; /* más grande */
+    padding: 10px 16px; /* más espacio */
     transition: color 0.2s ease, transform 0.2s ease;
   }
 
   .bottom-nav a:hover {
     color: #00c3ff;
-    transform: scale(1.1);
+    transform: scale(1.15); /* efecto más visible al tocar */
+  }
+
+  /* Página activa */
+  .bottom-nav a.active {
+    color: #00c3ff;
+    border-bottom: 3px solid #00c3ff;
+  }
+
+  /* Responsive específico para móviles */
+  @media (max-width: 480px) {
+    .bottom-nav {
+      padding: 16px 0;
+    }
+
+    .bottom-nav a {
+      font-size: 1.3rem;
+      padding: 12px 18px;
+    }
   }
 </style>
 
 <nav class="bottom-nav">
-  <a href="/Gym-App/index.html">Casa</a>
-  <a href="/Gym-App/gym-heatmap">Calendario</a>
-  <a href="/Gym-App/registro-pesos">Pesos</a>
+  <a href="marco.html">Casa</a>
+  <a href="../../Gym-App/gym-heatmap">Calendario</a>
+  <a href="../../Gym-App/registro-pesos">Pesos</a>
 </nav>
+
+<script>
+  // Marcar link activo según la URL actual
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.bottom-nav a').forEach(link => {
+    const linkPath = new URL(link.href).pathname;
+    if(linkPath === currentPath){
+      link.classList.add('active');
+    }
+  });
+</script>
