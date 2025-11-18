@@ -10,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
 <style>
-  /* Reset y base */
   html, body {
     margin: 0;
     padding: 0;
@@ -19,13 +18,11 @@
     width: 100%;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
-    background-color: #0e0f14; /* Fondo principal */
+    background-color: #0e0f14;
     color: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-    min-height: 100vh;
   }
 
   main.welcome-content {
@@ -37,7 +34,7 @@
     width: 90%;
     max-width: 600px;
     padding: 20px;
-    margin: 40px 0;
+    margin: 40px auto 80px auto; /* espacio inferior para la barra */
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
@@ -60,7 +57,6 @@
     line-height: 1.4;
   }
 
-  /* Grid para entrenadores */
   .coach-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -124,7 +120,7 @@
     box-shadow: 0 5px 16px rgba(0, 150, 255, 0.4);
     animation: glowPulse 3s ease-in-out infinite;
     text-align: center;
-    display: none; /* oculto por defecto */
+    display: none;
     transition: background-position 0.3s ease, transform 0.2s ease;
   }
 
@@ -139,38 +135,54 @@
     100% { box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4); }
   }
 
+  /* Barra inferior de navegación */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    box-sizing: border-box;
+  }
+
+  .bottom-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 6px 12px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .bottom-nav a:hover {
+    color: #00c3ff;
+    transform: scale(1.1);
+  }
+
   /* Responsive */
   @media (max-width: 480px) {
     main.welcome-content {
       padding: 16px;
-      margin: 20px 0;
+      margin: 20px auto 100px auto;
     }
 
-    h1.welcome-title {
-      font-size: 1.6rem;
-    }
-
-    p.welcome-subtitle {
-      font-size: 1rem;
-    }
-
-    .coach-card img {
-      width: 70px;
-      height: 70px;
-    }
-
-    .coach-card span {
-      font-size: 0.85rem;
-    }
-
-    .btn-primary {
-      padding: 12px;
-      font-size: 1rem;
-    }
+    h1.welcome-title { font-size: 1.6rem; }
+    p.welcome-subtitle { font-size: 1rem; }
+    .coach-card img { width: 70px; height: 70px; }
+    .coach-card span { font-size: 0.85rem; }
+    .btn-primary { padding: 12px; font-size: 1rem; }
+    .bottom-nav a { font-size: 0.9rem; padding: 4px 8px; }
   }
 </style>
 </head>
 <body>
+
 <main class="welcome-content">
   <h1 class="welcome-title">Elige a tu entrenador</h1>
   <p class="welcome-subtitle">Toca para seleccionar tu entrenador favorito.</p>
@@ -209,6 +221,13 @@
   </button>
 </footer>
 
+<!-- Barra inferior de navegación -->
+<nav class="bottom-nav">
+  <a href="#">Casa</a>
+  <a href="../../Gym-App/gym-heatmap">Calendario</a>
+  <a href="../../Gym-App/registro-pesos">Pesos</a>
+</nav>
+
 <script>
 let selectedCoachName = null;
 let lastSelectedCard = null;
@@ -237,5 +256,6 @@ function continuar() {
   }
 }
 </script>
+
 </body>
 </html>
