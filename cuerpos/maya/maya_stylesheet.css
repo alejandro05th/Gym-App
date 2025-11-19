@@ -52,6 +52,44 @@ svg {
     text-decoration: none;
     background-color: #1e1e2f;
     color: #fff;
+    padding: 10px 20px;  /* tamaño más pequeño */
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+
+.nav-sections a:hover {
+    background-color: #33334d;
+    transform: scale(1.05);
+}
+
+footer {
+    margin-top: auto;
+    background-color: #1e1e2f;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+/* Efecto hover para músculos SVG */
+.musculos:hover {
+    fill: #f1f1f1 !important;  /* Color al seleccionar músculo */
+    cursor: pointer;
+}
+
+.nav-sections {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.nav-sections a {
+    text-decoration: none;
+    background-color: #1e1e2f;
+    color: #fff;
     padding: 15px 25px;
     border-radius: 12px;
     font-weight: bold;
@@ -71,8 +109,3 @@ footer {
     padding: 15px;
 }
 
-/* Efecto hover para músculos SVG */
-.musculos-maya:hover {
-    fill: #f1f1f1 !important;  /* Color al seleccionar músculo */
-    cursor: pointer;
-}
