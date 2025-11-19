@@ -14,48 +14,46 @@
         html, body {
             margin: 0;
             padding: 0;
+            height: 100%;
             font-family: 'Inter', sans-serif;
             background: #0e0f14;
             color: #fff;
-            height: 100%;
-            overflow-x: hidden;
+
+            /* 👉 Esto centra el contenido en TODAS LAS PANTALLAS */
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         main.welcome-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 430px; /* perfecto para móvil */
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         /* TITULOS */
         .welcome-title {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-shadow: 0 3px 12px rgba(0, 195, 255, 0.3);
         }
 
         .welcome-subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #b8c6ff;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         /* INPUT */
         .input-wrapper {
             width: 100%;
-            max-width: 360px;
             margin: 0 auto 26px;
             position: relative;
+            max-width: 360px;
         }
 
         .input-text {
@@ -84,7 +82,6 @@
             transform: translateY(-50%);
             font-size: 1.3rem;
             opacity: 0.7;
-            pointer-events: none;
         }
 
         /* BOTÓN PRINCIPAL */
@@ -93,7 +90,7 @@
             max-width: 360px;
             padding: 15px;
             border-radius: 14px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
@@ -103,9 +100,7 @@
             box-shadow: 0 6px 20px rgba(0, 150, 255, 0.45);
             transition: 0.25s ease;
             animation: glowPulse 3s ease-in-out infinite;
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             display: block;
         }
 
@@ -121,11 +116,11 @@
         }
 
         footer.welcome-footer {
-            width: 100%;
-            padding: 20px;
-            margin: 0 auto 20px;
+            margin-top: 20px;
             display: flex;
             justify-content: center;
+            width: 100%;
+            padding-bottom: 20px;
         }
 
         .btn-secondary {
@@ -133,7 +128,7 @@
             max-width: 360px;
             padding: 15px;
             border-radius: 14px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 600;
             border: 1px solid rgba(255,255,255,0.25);
             background: rgba(255,255,255,0.08);
@@ -145,16 +140,12 @@
 
         .btn-secondary:hover {
             background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.35);
         }
 
-        /* RESPONSIVE MEJORADO */
+        /* RESPONSIVE */
         @media (max-width: 420px) {
             .welcome-title { font-size: 1.9rem; }
             .welcome-subtitle { font-size: 1.05rem; }
-            .input-wrapper, 
-            .btn-primary, 
-            .btn-secondary { max-width: 92%; }
         }
     </style>
 </head>
@@ -173,7 +164,7 @@
 
         <button class="btn-primary" onclick="guardarNombre()">Guardar nombre</button>
 
-        <p id="mensaje" class="welcome-subtitle" style="margin-top: 10px;"></p>
+        <p id="mensaje" class="welcome-subtitle" style="margin-top: 12px;"></p>
 
     </main>
 
@@ -184,20 +175,18 @@
 
 <script>
 function guardarNombre() {
-    const nombreInput = document.getElementById("nombre");
+    const nombre = document.getElementById("nombre").value.trim();
     const mensaje = document.getElementById("mensaje");
     const btnContinuar = document.getElementById("btnContinuar");
 
-    let nombre = nombreInput.value.trim();
-
     if (nombre.length < 2) {
-        mensaje.style.color = "#ff8080";
+        mensaje.style.color = "#ff6060";
         mensaje.innerText = "El nombre es demasiado corto.";
         return;
     }
 
     if (nombre.length > 16) {
-        mensaje.style.color = "#ff8080";
+        mensaje.style.color = "#ff6060";
         mensaje.innerText = "El nombre no puede superar 16 caracteres.";
         return;
     }
@@ -205,10 +194,9 @@ function guardarNombre() {
     localStorage.setItem("nombreUsuario", nombre);
 
     mensaje.style.color = "#00eaff";
-    mensaje.innerText = "¡Perfecto " + nombre + "!";
+    mensaje.innerText = "¡Perfecto, " + nombre + "!";
 
     btnContinuar.style.display = "block";
-    nombreInput.style.borderColor = "#00c3ff";
 }
 
 function continuar() {
