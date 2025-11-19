@@ -36,8 +36,8 @@
 
         /* LOGO */
         .app-logo {
-            width: 75%;
-            max-width: 260px;
+            width: 70%;
+            max-width: 240px;
             border-radius: 22px;
             margin-bottom: 28px;
             filter: drop-shadow(0 6px 16px rgba(0,0,0,0.55));
@@ -61,24 +61,26 @@
         /* FOOTER / BOTONES */
         footer.welcome-footer {
             width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            margin: 0 auto 22px;
             display: flex;
             flex-direction: column;
+            align-items: center; /* 🔥 CENTRA LOS BOTONES */
             gap: 14px;
+            padding-bottom: 28px;
         }
 
         /* BOTÓN PRINCIPAL */
         .btn-primary {
-            width: 100%;
-            padding: 16px;
+            width: 85%;                 /* 🔥 MÁS PEQUEÑO QUE EL ANCHO */
+            max-width: 350px;           /* 🔥 NO SE PASA EN MÓVIL */
+            padding: 15px;
             border-radius: 14px;
+            text-align: center;
             font-size: 1.15rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
             color: #fff;
+            text-decoration: none;
             background: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff);
             background-size: 200%;
             transition: 0.25s ease;
@@ -93,8 +95,9 @@
 
         /* BOTÓN SECUNDARIO */
         .btn-secondary {
-            width: 100%;
-            padding: 15px;
+            width: 85%;
+            max-width: 350px;
+            padding: 14px;
             border-radius: 14px;
             font-size: 1.05rem;
             font-weight: 600;
@@ -103,6 +106,7 @@
             color: #d6d6d6;
             cursor: pointer;
             transition: 0.25s ease;
+            text-align: center;
         }
 
         .btn-secondary:hover {
@@ -120,7 +124,7 @@
         @media (max-width: 480px) {
             .welcome-title { font-size: 2rem; }
             .welcome-subtitle { font-size: 1.05rem; }
-            .app-logo { max-width: 220px; }
+            .app-logo { max-width: 200px; }
         }
     </style>
 </head>

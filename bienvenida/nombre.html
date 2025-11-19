@@ -5,55 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Tu nombre</title>
 
-    <link rel="stylesheet" href="style.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GENERALES */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0e0f14;
+            color: #fff;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.welcome-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* TITULOS */
+        .welcome-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 3px 12px rgba(0, 195, 255, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.15rem;
+            color: #b8c6ff;
+            margin-bottom: 25px;
+        }
+
+        /* INPUT PREMIUM */
+        .input-wrapper {
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            margin-bottom: 26px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 16px 48px 16px 18px;
+            font-size: 1.1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            transition: 0.25s ease;
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: #00c3ff;
+            box-shadow: 0 0 12px rgba(0,195,255,0.5);
+            background: rgba(255,255,255,0.12);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.35rem;
+            opacity: 0.7;
+        }
+
+        /* BOTÓN PRINCIPAL */
+        .btn-primary {
+            width: 100%;
+            max-width: 380px;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #00c3ff, #007bff, #00c3ff);
+            background-size: 200%;
+            color: white;
+            box-shadow: 0 6px 20px rgba(0, 150, 255, 0.45);
+            transition: 0.25s ease;
+            animation: glowPulse 3s ease-in-out infinite;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .btn-primary:hover {
+            background-position: 100%;
+            transform: scale(1.03);
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 6px 18px rgba(0, 150, 255, 0.4); }
+            50% { box-shadow: 0 8px 28px rgba(0, 150, 255, 0.75); }
+            100% { box-shadow: 0 6px 18px rgba(0, 150, 255, 0.4); }
+        }
+
+        footer.welcome-footer {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            max-width: 380px;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            color: #d6d6d6;
+            cursor: pointer;
+            display: none;
+            transition: 0.25s ease;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.35);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .welcome-title { font-size: 1.9rem; }
+            .welcome-subtitle { font-size: 1.05rem; }
+            .input-wrapper, .btn-primary, .btn-secondary { max-width: 90%; }
+        }
+    </style>
 </head>
+
 <body>
 
     <main class="welcome-content">
-        
-        <h1 class="welcome-title">¿Cómo te llamas?</h1>
-        <p class="welcome-subtitle">Este nombre aparecerá en tu progreso y entrenamientos.</p>
 
-        <!-- ⭐ INPUT PREMIUM -->
+        <h1 class="welcome-title">¿Cómo te llamas?</h1>
+        <p class="welcome-subtitle">Este nombre se usará para tu progreso y entrenamientos.</p>
+
         <div class="input-wrapper">
             <input type="text" id="nombre" class="input-text" placeholder="Escribe tu nombre">
             <span class="input-icon">👤</span>
         </div>
-        
-        <button class="btn-primary" onclick="guardarNombre()">Guardar</button>
 
-        <p id="mensaje" class="welcome-subtitle" style="margin-top: 15px; font-size: 1.2rem;"></p>
+        <button class="btn-primary" onclick="guardarNombre()">Guardar nombre</button>
+
+        <p id="mensaje" class="welcome-subtitle" style="margin-top: 10px;"></p>
 
     </main>
 
     <footer class="welcome-footer">
-        <button class="btn-secondary" onclick="continuar()" id="btnContinuar" style="display:none;">
+        <button class="btn-secondary" onclick="continuar()" id="btnContinuar">
             Continuar
         </button>
     </footer>
 
+
 <script>
 function guardarNombre() {
-    let nombre = document.getElementById("nombre").value.trim();
+    const nombreInput = document.getElementById("nombre");
+    const mensaje = document.getElementById("mensaje");
+    const btnContinuar = document.getElementById("btnContinuar");
 
-    if (nombre === "") {
-        alert("Por favor escribe tu nombre.");
+    let nombre = nombreInput.value.trim();
+
+    if (nombre.length < 2) {
+        mensaje.style.color = "#ff8080";
+        mensaje.innerText = "El nombre es demasiado corto.";
         return;
     }
 
-    // Guardar globalmente para toda la app
+    if (nombre.length > 16) {
+        mensaje.style.color = "#ff8080";
+        mensaje.innerText = "El nombre no puede superar 16 caracteres.";
+        return;
+    }
+
+    // Guardar nombre globalmente
     localStorage.setItem("nombreUsuario", nombre);
 
-    // Mostrar mensaje
-    document.getElementById("mensaje").innerText =
-        "¡Comencemos, " + nombre + "!";
+    mensaje.style.color = "#00eaff";
+    mensaje.innerText = "¡Perfecto " + nombre + "!";
 
-    // Mostrar botón continuar
-    document.getElementById("btnContinuar").style.display = "block";
+    btnContinuar.style.display = "block";
+    nombreInput.style.borderColor = "#00c3ff";
 }
 
 function continuar() {
