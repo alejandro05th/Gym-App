@@ -18,6 +18,7 @@
             background: #0e0f14;
             color: #fff;
             height: 100%;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -26,9 +27,11 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             padding: 40px 20px;
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -47,12 +50,12 @@
             margin-bottom: 25px;
         }
 
-        /* INPUT PREMIUM */
+        /* INPUT */
         .input-wrapper {
             width: 100%;
-            max-width: 380px;
+            max-width: 360px;
+            margin: 0 auto 26px;
             position: relative;
-            margin-bottom: 26px;
         }
 
         .input-text {
@@ -64,6 +67,7 @@
             background: rgba(255,255,255,0.06);
             color: #fff;
             transition: 0.25s ease;
+            box-sizing: border-box;
         }
 
         .input-text:focus {
@@ -78,14 +82,15 @@
             right: 14px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             opacity: 0.7;
+            pointer-events: none;
         }
 
         /* BOTÓN PRINCIPAL */
         .btn-primary {
             width: 100%;
-            max-width: 380px;
+            max-width: 360px;
             padding: 15px;
             border-radius: 14px;
             font-size: 1.1rem;
@@ -117,7 +122,6 @@
 
         footer.welcome-footer {
             width: 100%;
-            max-width: 600px;
             padding: 20px;
             margin: 0 auto 20px;
             display: flex;
@@ -126,7 +130,7 @@
 
         .btn-secondary {
             width: 100%;
-            max-width: 380px;
+            max-width: 360px;
             padding: 15px;
             border-radius: 14px;
             font-size: 1.05rem;
@@ -137,8 +141,6 @@
             cursor: pointer;
             display: none;
             transition: 0.25s ease;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .btn-secondary:hover {
@@ -146,11 +148,13 @@
             border-color: rgba(255,255,255,0.35);
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 480px) {
+        /* RESPONSIVE MEJORADO */
+        @media (max-width: 420px) {
             .welcome-title { font-size: 1.9rem; }
             .welcome-subtitle { font-size: 1.05rem; }
-            .input-wrapper, .btn-primary, .btn-secondary { max-width: 90%; }
+            .input-wrapper, 
+            .btn-primary, 
+            .btn-secondary { max-width: 92%; }
         }
     </style>
 </head>
@@ -174,9 +178,7 @@
     </main>
 
     <footer class="welcome-footer">
-        <button class="btn-secondary" onclick="continuar()" id="btnContinuar">
-            Continuar
-        </button>
+        <button class="btn-secondary" onclick="continuar()" id="btnContinuar">Continuar</button>
     </footer>
 
 
@@ -200,7 +202,6 @@ function guardarNombre() {
         return;
     }
 
-    // Guardar nombre globalmente
     localStorage.setItem("nombreUsuario", nombre);
 
     mensaje.style.color = "#00eaff";
